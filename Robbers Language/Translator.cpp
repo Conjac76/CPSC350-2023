@@ -34,7 +34,6 @@ std::string Translator::translateEnglishWord(std::string singleWord) {
             printString += singleChar;
         }
     }
-    std::cout << printString << std::endl;
     return printString;
 }
 
@@ -43,10 +42,7 @@ std::string Translator::translateEnglishSentence(std::string singleSentence) {
     std::string word;
     for(int i = 0; i < singleSentence.size(); ++i) {
         char c = singleSentence[i];
-            if(c >= 'a' && c <= 'z') {
-                word += c;
-            }
-            else if(c >= 'a' && c <= 'z') {
+            if(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
                 word += c;
             }
             else {
@@ -55,6 +51,5 @@ std::string Translator::translateEnglishSentence(std::string singleSentence) {
             } 
     }
     printSentence += translateEnglishWord(word);
-    std::cout << printSentence << std::endl;
     return printSentence; 
 }

@@ -8,8 +8,8 @@ int main() {
     //m.translateSingleVowel('a');
     //m.translateSinlngeConsonant('c');
     Translator h;
-    h.translateEnglishWord("Theres");
-    h.translateEnglishSentence("Hello there, chicken is good!");
+    //h.translateEnglishWord("Theres");
+    //h.translateEnglishSentence("Hello there, chicken is good!");
     FileProcessor f;
-    //f.processFile("Hello there, chicken is good!", "translation.html");
+    f.processFile("hello.txt", "translation.html");
 }
