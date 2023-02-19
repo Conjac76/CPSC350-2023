@@ -51,5 +51,6 @@ std::string Translator::translateEnglishSentence(std::string singleSentence) {
             } 
     }
     printSentence += translateEnglishWord(word);
+    std::cout << printSentence << std::endl;
     return printSentence; 
 }
