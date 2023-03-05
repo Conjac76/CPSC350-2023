@@ -7,7 +7,6 @@ Mario::Mario() {
 }
 
 Mario::~Mario() {
-
 }
 
 Mario::Mario(int numOfLives){
@@ -16,12 +15,29 @@ Mario::Mario(int numOfLives){
     mPowerLevel = 0;
 }
 
-bool Mario::isTwenty() {
+void Mario::isTwenty() {
     if(mNumOfCoins == 19) {
         mNumOfLives += 1;
         mNumOfCoins = 0;
-        return true;
     } else {
-        return false;
+        mNumOfCoins +=1;
     }
+}
+
+
+void Mario::setLives(int lives) {
+    mNumOfLives += lives;
+}
+
+int Mario::getNumOfLives() {
+    return mNumOfLives;
+}
+
+void Mario::setPowerLevel(int powerLevel) {
+    if(mPowerLevel <= 2) {
+        mPowerLevel += powerLevel; 
+    }
+}
+int Mario::getPowerLevel() {
+    return mPowerLevel;
 }

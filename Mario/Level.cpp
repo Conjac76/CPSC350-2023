@@ -1,6 +1,7 @@
 #include "Level.h"
 #include <iostream>
 #include <cstdlib>
+#include <time.h>
 
 Level::Level() {
 
@@ -10,60 +11,125 @@ Level::~Level() {
 
 }
 
-Level::Level(int size) {
-    std::string level[size][size];
-    srand(17);
-    std::cout << "working..." << std::endl;
+Level::Level(int size, int percentCoins, int percentKoopas, int percentGoombas, int percentNothing, int percentMushrooms) {
+    srand(time(NULL));
+    mSize = size;
+    std::string* level = new std::string[mSize * mSize];
+    pLevel = level;
     for(int i = 0; i < size; ++i) {
         for(int j = 0; j < size; ++j) {
-            int randomlyDispurseEnemies = rand() % 5;
-            if (randomlyDispurseEnemies == 0) {
-                level[i][j] = 'x';
-            } else if (randomlyDispurseEnemies == 1) {
-                level[i][j] = 'm';
-            } else if (randomlyDispurseEnemies == 2) {
-                level[i][j] = 'c';
-            } else if (randomlyDispurseEnemies == 3) {
-                level[i][j] = 'g';
-            } else if (randomlyDispurseEnemies == 4) {
-                level[i][j] = 'k';
+            int randomlyDispurseEnemies = rand() % 100;
+            if (randomlyDispurseEnemies < percentNothing) {
+                *(level + i * mSize + j) = 'x';
+            } else if (randomlyDispurseEnemies < (percentMushrooms+percentNothing)) {
+                *(level + i * mSize + j) = 'm';
+            } else if (randomlyDispurseEnemies < (percentCoins+percentMushrooms+percentNothing)) {
+                *(level + i * mSize + j) = 'c';
+            } else if (randomlyDispurseEnemies < (percentGoombas + percentCoins+percentMushrooms+percentNothing)) {
+                *(level + i * mSize + j) = 'g';
+            } else if (randomlyDispurseEnemies < (percentKoopas + percentGoombas + percentCoins+percentMushrooms+percentNothing)) {
+                *(level + i * mSize + j) = 'k';
             }
         }
-    }   
+    }
+    int i = rand() % mSize;
+    int j = rand() % mSize;
+    *(level + i * mSize + j) = 'w';  
+    int bossCoordX = rand() % size;
+    int bossCoordY = rand() % size;
+    *(level + bossCoordX * size + bossCoordY) = 'b'; 
     marioCoordX = rand() % size;
     marioCoordY = rand() % size;
-    level[marioCoordX][marioCoordY] = 'H';
-    for(int i = 0; i < size; ++i) {
-        for(int j = 0; j < size; ++j) {
-            std::cout << level[j][i] << std::endl;
-        }
-    }
+    std::cout << "Mario is at column: " << marioCoordY << ", row: " << marioCoordX << std::endl;
+    pointerX = &marioCoordX;
+    pointerY = &marioCoordY;
+    previousItem = *(level + marioCoordX * size + marioCoordY);
+    *(level + marioCoordX * size + marioCoordY) = 'H';
 } 
 
 void Level::up() {
-    marioCoordY += 1;
-    if(marioCoordY == mSize) {
-        marioCoordY = 0;
-    } 
+    std::cout << "up\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = ' ';
+    *pointerX += 1;
+    if(*pointerX > mSize-1) {
+        *pointerX = 0;
+    }
+    std::cout << "Mario is at column "<< *pointerY << ", row: " <<*pointerX << std::endl;
+    previousItem = *(pLevel + *pointerX * mSize + *pointerY);
+    std::cout << previousItem << " is what you landed on\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = 'H';
 }
 
 void Level::down() {
-    marioCoordY -= 1;
-    if(marioCoordY == 0){
-        marioCoordY = mSize;
+    std::cout << "down\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = ' ';
+    *pointerX -= 1;
+    if(*pointerX < 0){
+        *pointerX = mSize-1;
     }
+    std::cout << "Mario is at column "<< *pointerY << ", row: " <<*pointerX << std::endl;
+    previousItem = *(pLevel + *pointerX * mSize + *pointerY);
+    std::cout << previousItem << " is what you landed on\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = 'H';
 }
 
 void Level::left() {
-    marioCoordX += 1;
-    if(marioCoordX == 0){
-        marioCoordY = mSize;
+    std::cout << "left\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = ' ';
+    *pointerY += 1;
+    if(*pointerY > mSize-1){
+        *pointerY = 0;
     }
+    std::cout << "Mario is at column "<< *pointerY << ", row: " <<*pointerX << std::endl;
+    previousItem = *(pLevel + *pointerX * mSize + *pointerY);
+    std::cout << previousItem << " is what you landed on\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = 'H';
 }
 
 void Level::right() {
-    marioCoordY += 1;
-    if(marioCoordY == mSize){
-        marioCoordY = 0;
+    std::cout << "right\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = ' ';
+    *pointerY -= 1;
+    if(*pointerY < 0){
+        *pointerY = mSize-1;
     }
+    std::cout << "Mario is at column "<< *pointerY << ", row: " <<*pointerX << std::endl;
+    previousItem = *(pLevel + *pointerX * mSize + *pointerY);
+    std::cout << previousItem << " is what you landed on\n";
+    *(pLevel + *pointerX * mSize + *pointerY) = 'H';
+}
+
+void Level::move() {
+    int randomMovement = rand() % 4;
+    if (randomMovement == 0) {
+        up();
+    } else if (randomMovement == 1) {
+        down();
+    } else if (randomMovement == 2) {
+        left();
+    } else if (randomMovement == 3) {
+        right();
+    }
+}
+
+void Level::printLevel() {
+    for(int i = 0; i < mSize;  ++i) {
+        for(int j = 0; j < mSize; ++j) {
+            std::cout << *(pLevel + i * mSize + j) << " ";
+        }
+    std::cout << std::endl; 
+    }
+    std::cout << "\n";
+}
+
+std::string Level::indexLevel() {
+    return *(pLevel + *pointerX * mSize + *pointerY);
+}
+
+void Level::clear() {
+    *(pLevel + *pointerX * mSize + *pointerY) = ' ';
+}
+
+std::string Level::getPreviousItem(){
+    return previousItem;
 }
