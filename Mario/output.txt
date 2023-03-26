@@ -1,0 +1,385 @@
+Level: 0
+Hero Location row:1, col:4
+Power Level: 0
+Mario ate a mushroom
+Number of lives: 3
+Number of Coins: 0
+right
+c x k m b 
+k c k x H 
+x c x c g 
+x x m x c 
+k k k k c 
+
+Level: 0
+Hero Location row:1, col:0
+Power Level: 1
+Mario fought a Koopa and won
+Number of lives: 3
+Number of Coins: 0
+down
+c x k m b 
+H c k x x 
+x c x c g 
+x x m x c 
+k k k k c 
+
+Level: 0
+Hero Location row:2, col:0
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 0
+down
+c x k m b 
+x c k x x 
+H c x c g 
+x x m x c 
+k k k k c 
+
+Level: 0
+Hero Location row:3, col:0
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 0
+left
+c x k m b 
+x c k x x 
+x c x c g 
+H x m x c 
+k k k k c 
+
+Level: 0
+Hero Location row:3, col:4
+Power Level: 1
+Mario collected a coin
+Number of lives: 3
+Number of Coins: 1
+up
+c x k m b 
+x c k x x 
+x c x c g 
+x x m x H 
+k k k k c 
+
+Level: 0
+Hero Location row:2, col:4
+Power Level: 1
+Mario fought a Goomba and won
+Number of lives: 3
+Number of Coins: 1
+down
+c x k m b 
+x c k x x 
+x c x c H 
+x x m x x 
+k k k k c 
+
+Level: 0
+Hero Location row:3, col:4
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 1
+left
+c x k m b 
+x c k x x 
+x c x c x 
+x x m x H 
+k k k k c 
+
+Level: 0
+Hero Location row:3, col:3
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 1
+left
+c x k m b 
+x c k x x 
+x c x c x 
+x x m H x 
+k k k k c 
+
+Level: 0
+Hero Location row:3, col:2
+Power Level: 1
+Mario ate a mushroom
+Number of lives: 3
+Number of Coins: 1
+down
+c x k m b 
+x c k x x 
+x c x c x 
+x x H x x 
+k k k k c 
+
+Level: 0
+Hero Location row:4, col:2
+Power Level: 2
+Mario fought a Koopa and won
+Number of lives: 3
+Number of Coins: 1
+down
+c x k m b 
+x c k x x 
+x c x c x 
+x x x x x 
+k k H k c 
+
+Level: 0
+Hero Location row:0, col:2
+Power Level: 2
+Mario fought a Koopa and won
+Number of lives: 3
+Number of Coins: 1
+left
+c x H m b 
+x c k x x 
+x c x c x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:0, col:1
+Power Level: 2
+The position is empty
+Number of lives: 3
+Number of Coins: 1
+right
+c H x m b 
+x c k x x 
+x c x c x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:0, col:2
+Power Level: 2
+The position is empty
+Number of lives: 3
+Number of Coins: 1
+down
+c x H m b 
+x c k x x 
+x c x c x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:1, col:2
+Power Level: 2
+Mario fought a Koopa and lost
+Number of lives: 3
+Number of Coins: 1
+right
+c x x m b 
+x c H x x 
+x c x c x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:1, col:3
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 1
+right
+c x x m b 
+x c k H x 
+x c x c x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:1, col:4
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 1
+left
+c x x m b 
+x c k x H 
+x c x c x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:1, col:3
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 1
+down
+c x x m b 
+x c k H x 
+x c x c x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:2, col:3
+Power Level: 1
+Mario collected a coin
+Number of lives: 3
+Number of Coins: 2
+right
+c x x m b 
+x c k x x 
+x c x H x 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:2, col:4
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 2
+down
+c x x m b 
+x c k x x 
+x c x x H 
+x x x x x 
+k k x k c 
+
+Level: 0
+Hero Location row:3, col:4
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 2
+down
+c x x m b 
+x c k x x 
+x c x x x 
+x x x x H 
+k k x k c 
+
+Level: 0
+Hero Location row:4, col:4
+Power Level: 1
+Mario collected a coin
+Number of lives: 3
+Number of Coins: 3
+up
+c x x m b 
+x c k x x 
+x c x x x 
+x x x x x 
+k k x k H 
+
+Level: 0
+Hero Location row:3, col:4
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 3
+up
+c x x m b 
+x c k x x 
+x c x x x 
+x x x x H 
+k k x k x 
+
+Level: 0
+Hero Location row:2, col:4
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 3
+right
+c x x m b 
+x c k x x 
+x c x x H 
+x x x x x 
+k k x k x 
+
+Level: 0
+Hero Location row:2, col:0
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 3
+right
+c x x m b 
+x c k x x 
+H c x x x 
+x x x x x 
+k k x k x 
+
+Level: 0
+Hero Location row:2, col:1
+Power Level: 1
+Mario collected a coin
+Number of lives: 3
+Number of Coins: 4
+left
+c x x m b 
+x c k x x 
+x H x x x 
+x x x x x 
+k k x k x 
+
+Level: 0
+Hero Location row:2, col:0
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 4
+down
+c x x m b 
+x c k x x 
+H x x x x 
+x x x x x 
+k k x k x 
+
+Level: 0
+Hero Location row:3, col:0
+Power Level: 1
+The position is empty
+Number of lives: 3
+Number of Coins: 4
+down
+c x x m b 
+x c k x x 
+x x x x x 
+H x x x x 
+k k x k x 
+
+Level: 0
+Hero Location row:4, col:0
+Power Level: 1
+Mario fought a Koopa and lost
+Number of lives: 3
+Number of Coins: 4
+left
+c x x m b 
+x c k x x 
+x x x x x 
+x x x x x 
+H k x k x 
+
+Level: 0
+Hero Location row:4, col:4
+Power Level: 0
+The position is empty
+Number of lives: 3
+Number of Coins: 4
+down
+c x x m b 
+x c k x x 
+x x x x x 
+x x x x x 
+k k x k H 
+
+Level: 0
+Hero Location row:0, col:4
+Power Level: 0
+Mario fought the level boss and won
+Number of lives: 3
+Number of Coins: 4
+stay put
+it took 30 turns to win
