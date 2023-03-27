@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-int main() {
+int main (int argc, char** argv) {
 
     /*
     MonoStack<double> monostack(8, 'd');
@@ -22,6 +22,7 @@ int main() {
     //std::cout << monostack.pop() << std::endl;
     
     SpeakerView<double> speakerview;
-    speakerview.processFile("seatting.txt");
+    std::string charInputFileName(argv[1]);
+    speakerview.processFile(charInputFileName);
     speakerview.views();
 }
