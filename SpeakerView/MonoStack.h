@@ -9,34 +9,34 @@ class MonoStack {
 public:
     MonoStack(){ // default constructor
         mSize = 64;
-        top = -1;
-        value = new T[mSize];
-        increasing = true;
+        mTop = -1;
+        pValue = new T[mSize];
+        mIncreasing = true;
     }
     // Overloaded constructor to create MonoStack of size maxSize
     MonoStack(int maxSize) {
         mSize = maxSize;
-        top = -1;
-        value = new T[mSize];
-        increasing = true;
+        mTop = -1;
+        pValue = new T[mSize];
+        mIncreasing = true;
     }
     
     MonoStack(int maxSize, char o) {
         mSize = maxSize;
-        top = -1;
-        value = new T[mSize];
+        mTop = -1;
+        pValue = new T[mSize];
         if (o == 'i' || o == 'I') {
-            increasing = true;
+            mIncreasing = true;
         }
         else if (o == 'd' || o == 'D') {
-            increasing = false;
+            mIncreasing = false;
         }
         else {
-            // put in different char
+             throw std::invalid_argument("MonoStack must be increasing or decreasing");
         }
     }
     ~MonoStack(){ // destructor
-        delete[] value;
+        delete[] pValue;
     }
     // core functions
     void push(const T& data) {
@@ -44,42 +44,52 @@ public:
         if (isFull()) {
             throw std::runtime_error("stack is full");
         }
-        while (top >= 0 && ((increasing && value[top] > data) || (!increasing && value[top] < data))) {
-            top--;
+        while (mTop >= 0 && ((mIncreasing && pValue[mTop] > data) || (!mIncreasing && pValue[mTop] < data))) {
+            mTop--;
         }
-        value[++top] = data;
+        pValue[++mTop] = data;
     }
     T pop() {
         // check if stack is empty
         if (isEmpty()) {
             throw std::runtime_error("stack is empty, nothing to pop");
         }
-        return value[top--];
+        return pValue[mTop--];
     }
-    T peek(){ // aka top()
+    T peek(){ // aka mTop()
         // check if stack is empty
         if (isEmpty()) {
             throw std::runtime_error("stack is empty, nothing to peek");
         }
-        return value[top];
+        return pValue[mTop];
     }
 
     // aux functions
     int getSize() {
-        return top + 1;
+        return mTop + 1;
     }
     bool isEmpty() {
-        return (top == -1);
+        return (mTop == -1);
     }
     bool isFull() {
-        return (top == mSize - 1);
+        return (mTop == mSize - 1);
+    }
+
+    void printStack() {
+        for (int i = mTop; i >=0; i--) {
+            std::cout << pValue[i] << ", ";
+        }
+        std::cout << std::endl;
     }
 
 private:
-    T* value; // pointer to array of values
+    MonoStack(const MonoStack &rhs);
+    MonoStack &operator=(const MonoStack &rhs);
+
+    T* pValue; // pointer to array of values
     int mSize;
-    int top;
-    bool increasing;
+    int mTop;
+    bool mIncreasing;
 };
 
 #endif
