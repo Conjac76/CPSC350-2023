@@ -24,24 +24,52 @@ IO::IO(std::string inputFile) {
                 } else if (counter == 2) {
                     mWindowsFincialAid = mychar - zero;
                     std::cout << mWindowsFincialAid << std::endl;
+                    serviceCenter = ServiceCenter(mWindowsRegistar, mWindowsFincialAid, mWindowsCashier);
                 } else if (counter == 3) {
                     mClockTick = mychar - zero;
                     std::cout << mClockTick << std::endl;
                 } else if (counter == 4) {
                     mNumStudents = mychar - zero;
                     std::cout << mNumStudents << std::endl;
-                } else if (counter == 5) {
-                    if(mychar == '\n') {
-                        std::cout << "End of student info" << std::endl;
-                    } else {
-                        std::cout << mychar << std::endl;
-                    }
+                    //Outer loop for each Student.
                     for(int i = 0; i < mNumStudents; i++) {
                         int regTime, cashierTime, aidTime;
-                        char regChar, cashierChar, aidChar;
-                        myfile >> regTime >> cashierTime >> aidTime;
-                        std::cout << "Student " << i+1 << " info: " << regTime << cashierTime << aidTime << std::endl;
+                        myfile >> regTime >> cashierTime >> aidTime >> order[0] >> order[1] >> order[2];
+                        orderString += order[0];
+                        orderString += order[1];
+                        orderString += order[2];
+                        //Inner loop for the information about student.
+                        for(int j = 0; j < 3; j++) {
+                            std::cout << order[j];
+                        }
+                        if(order[0] == 'R') {
+                            if(order[1] == 'C') {
+                                //Order is RCF
+                                serviceCenter.addCustomer(Customer(regTime, cashierTime, aidTime, orderString));
+                            } else if(order[1] == 'F') {
+                                //Order is RFC
+                                Customer(regTime, aidTime, cashierTime, orderString);
+                            }   
+                        } else if(order[0] == 'C') {
+                            if(order[1] == 'F') {
+                                //Order is CFR
+                                Customer(cashierTime, aidTime, regTime, orderString);
+                            } else if(order[1] == 'R') {
+                                //Order is CRF
+                                Customer(cashierTime, regTime, aidTime, orderString);
+                            }
+                        } else if(order[0] == 'F') {
+                            if(order[1] == 'C') {
+                                //Order is FCR
+                                Customer(aidTime, cashierTime, regTime, orderString);
+                            } else if(order[1] == 'R') {
+                                //Order is FRC
+                                Customer(aidTime, regTime, cashierTime, orderString);
+                            }
+                        }
                     }
+                    std::cout << std::endl;
+                    counter = 2;
                 }
                 counter++;
             }

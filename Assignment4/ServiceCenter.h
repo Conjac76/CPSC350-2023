@@ -10,11 +10,11 @@ class ServiceCenter {
         ServiceCenter(int windowsRegistrar, int windowsFinancialAid, int windowsCashier);
         ServiceCenter();
         ~ServiceCenter();
+        void addCustomer(Customer c);
         void Game();
 
     private:
         int mClockTick;
-
 };
 
 #endif

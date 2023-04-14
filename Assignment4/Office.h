@@ -9,9 +9,12 @@ class Office {
         Office(int numWindows);
         ~Office();
     private:
+        int totalWaitTime = 0;
+        int totalIdleTime = 0;
+        int numCustomersServed = 0;
         Office();
         int mNumWindow;
-        ListQueue<Customer> queue;
+        ListQueue<Customer> customerQueue;
         DblList<Window> windows;
 
 };

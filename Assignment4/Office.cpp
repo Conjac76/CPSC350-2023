@@ -3,7 +3,8 @@
 
 Office::Office(int numWindows) {
     for(int i = 0; i < numWindows; ++i) {
-        windows.insertFront(Window());
+        Window d;
+        windows.insertFront(d);
     }
 }
 
