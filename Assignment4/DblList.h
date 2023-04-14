@@ -17,6 +17,7 @@ public:
     Type getFront();
     int find(Type value);
     bool isEmpty();
+    void insertBack(Type d);
 
     void printList();
     unsigned int getSize();
@@ -68,6 +69,20 @@ void DblList<Type>::insertFront(Type d) {
         node->next = front;
     }
     front = node;
+    ++size;
+}
+
+template <class Type>
+void DblList<Type>::insertBack(Type d) {
+    ListNode<Type> *node = new ListNode<Type>(d);
+    if (size == 0) {
+        front = node;
+    }
+    else {
+        back->next = node;
+        node->prev = back;
+    }
+    back = node;
     ++size;
 }
 
