@@ -12,14 +12,32 @@ public:
 	void enqueue(Type data);
 	Type dequeue();
 	Type peek();
+	Type getFront();
+	ListQueue(const ListQueue<Type>& other);
 
+
+	Type& getAt(int i);
 	bool isFull();
 	bool isEmpty();
 	int getSize();
+	ListQueue<Type>& operator=(const ListQueue<Type>& other) {
+		if (this != &other) {
+			delete list;
+			list = new DblList<Type>(*other.list);
+		}
+		return *this;
+	}
+
+
 
 private:
 	DblList<Type>* list;
 };
+
+template<class Type>
+Type& ListQueue<Type>::getAt(int index) {
+	return list->getAt(index);
+}
 
 template<class Type>
 ListQueue<Type>::ListQueue() {
@@ -51,7 +69,7 @@ Type ListQueue<Type>::peek() {
 	if (!this->isEmpty()) {
 		return list->back->data;
     } else {
-        //Error List empty
+        std::__throw_runtime_error("error empty");
     }
 }
 
@@ -69,6 +87,21 @@ template<class Type>
 int ListQueue<Type>::getSize() {
     return list->getSize();
 }
+
+template<class Type>
+Type ListQueue<Type>::getFront() {
+	if (!this->isEmpty()) {
+		return list->front->data;
+	} else {
+		std::__throw_runtime_error("error: empty");
+	}
+}
+
+template<class Type>
+ListQueue<Type>::ListQueue(const ListQueue<Type>& other) {
+    list = new DblList<Type>(*other.list);
+}
+
 
 
 #endif

@@ -1,31 +1,45 @@
 #include "Window.h"
 
-Window::Window() {
-    idle = true;
-    idleTime = 0;
+Window::Window() : 
+   mpCurrentCustomer(NULL),
+   mWaitTime(0)
+{
 }
 
-int Window::getIdleTime() {
-    return idleTime;
+Window::Window(const Window& rhs ) :
+    mpCurrentCustomer(rhs.mpCurrentCustomer),
+    mWaitTime(rhs.mWaitTime)
+{
 }
 
-bool Window::getIdle() {
-    return idle;
-}
-
-void Window::setIdle(bool idlee) {
-    idle = idlee;
-}
-
-void Window::setIdleTime(int idletime) {
-    idleTime = idletime;
-}
-
-void Window::start(const Customer& customer, int time) {
-    idle = false;
-    currentCustomer = customer;
+Window & Window::operator=(const Window& rhs ) {
+    if(this == &rhs) {
+        return *this;
+    } 
+    mpCurrentCustomer = rhs.mpCurrentCustomer;
+    mWaitTime = rhs.mWaitTime;
+    return *this;
 }
 
 Window::~Window() {
+}
 
+Customer* Window::getCurrentCustomer()  {
+    return mpCurrentCustomer;
+}
+
+void Window::setCurrentCustomer(Customer *pCurrentCustomer)  {
+    mpCurrentCustomer = pCurrentCustomer;
+}
+
+void Window::incrementWaitTime() {
+    mWaitTime++;
+}
+
+void Window::resetWaitTime() {
+    mWaitTime = 0;
+}
+
+int Window::getWaitTime() {
+    return mWaitTime;
 }

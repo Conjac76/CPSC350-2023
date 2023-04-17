@@ -8,13 +8,20 @@
 class ServiceCenter {
     public:
         ServiceCenter(int windowsRegistrar, int windowsFinancialAid, int windowsCashier);
-        ServiceCenter();
         ~ServiceCenter();
-        void addCustomer(Customer c);
-        void Game();
+        ServiceCenter();
+        ServiceCenter(const ServiceCenter& rhs );
+        ServiceCenter & operator=(const ServiceCenter& rhs );
+        void addCustomer(Customer *pCustomer);
+        void runOneMinute(int minutes);
+        bool hasCustomers();
+        void printStats();
 
     private:
-        int mClockTick;
+        Office mRegistrar;
+        Office mFinancialAid;
+        Office mCashier;
+
 };
 
 #endif

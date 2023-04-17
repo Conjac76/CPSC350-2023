@@ -17,15 +17,71 @@ public:
     Type getFront();
     int find(Type value);
     bool isEmpty();
-    void insertBack(Type d);
-
+    void insertBack(const Type& d);
+    Type& getAt(int index) const;
     void printList();
-    unsigned int getSize();
+    unsigned int getSize() const;
     ListNode<Type>* remove(Type key);
+    DblList(const DblList& rhs );
+
+    DblList<Type>& operator=(const DblList<Type>& rhs) {
+        if (this == &rhs) {
+            return *this;
+        }
+        front = nullptr;
+        back = nullptr;
+        size = 0;
+
+        ListNode<Type>* current = rhs.front;
+        while (current != nullptr) {
+            insertBack(current->data);
+            current = current->next;
+        }
+        return *this;
+    }
+
     ListNode<Type> *front;
     ListNode<Type> *back;
     unsigned int size;
+
+    Type& operator[](int index) {
+        if (index < 0 || index >= getSize()) {
+            throw std::out_of_range("Index out of bounds");
+        }
+        ListNode<Type> *current = front;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+        return current->data;
+    }
 };
+
+template <class Type>
+DblList<Type>::DblList(const DblList& rhs) {
+    front = nullptr;
+    back = nullptr;
+    size = 0;
+
+    ListNode<Type>* current = rhs.front;
+    while (current != nullptr) {
+        insertBack(current->data);
+        current = current->next;
+    }
+}
+
+
+
+template<class Type>
+Type& DblList<Type>::getAt(int index) const {
+    if (index < 0 || index >= getSize()) {
+        throw std::out_of_range("Index out of bounds");
+    }
+    ListNode<Type> *current = front;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+    return current->data;
+}
 
 template <class Type>
 DblList<Type>::DblList() {
@@ -45,7 +101,7 @@ DblList<Type>::~DblList() {
 }
 
 template <class Type>
-unsigned int DblList<Type>::getSize() {
+unsigned int DblList<Type>::getSize() const {
     return size;
 }
 
@@ -73,7 +129,7 @@ void DblList<Type>::insertFront(Type d) {
 }
 
 template <class Type>
-void DblList<Type>::insertBack(Type d) {
+void DblList<Type>::insertBack(const Type& d) {
     ListNode<Type> *node = new ListNode<Type>(d);
     if (size == 0) {
         front = node;
@@ -208,12 +264,14 @@ bool DblList<Type>::isEmpty() {
 	return this->getSize() == 0;
 }
 
-template <class Type>
+template<class Type>
 Type DblList<Type>::getFront() {
     if (size == 0) {
         throw std::logic_error("List is empty");
     }
     return front->data;
 }
+
+
 
 #endif

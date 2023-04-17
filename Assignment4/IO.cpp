@@ -1,102 +1,104 @@
-#include "IO.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
-IO::IO(std::string inputFile) {
+#include "IO.h"
+#include "DblList.h"
+
+IO::IO() :
+    mServiceCenter(),
+    mCustomerList() {
+}   
+
+IO::~IO() {
+}
+
+void IO::readFile(std::string inputFile) {
     std::ifstream myfile;
-    myfile.open(inputFile);
-    char mychar;
-    int counter = 0;
-    char zero = '0';
-    if(myfile.is_open()) {
-        while(myfile) {
-            mychar = myfile.get();
-            if(mychar >= '0' && mychar <= '9') {
-                if(mychar == '\n') {
-                    continue;
+    try {
+        myfile.open(inputFile);
+        if(myfile.is_open()) {
+            int windowsRegistrar;
+            int windowsCashier;
+            int windowsFinancialAid;
+
+            // Process first 3 lines and create service center
+            std::string line;
+            int lineCounter = 0;
+            while(getline(myfile, line)) {
+                int value = std::stoi(line);
+                // first line number of registrar windows
+                if(lineCounter == 0) {
+                    windowsRegistrar = value;
+                 // second line number of cashier windows
+                } else if (lineCounter == 1) {
+                    windowsCashier = value;
+                // third line number of finanical aid windows 
+                // then move on to reading custoemrs.             
+                } else if (lineCounter == 2) {
+                    windowsFinancialAid = value;
+                    break;
                 }
-                if(counter == 0) {
-                    mWindowsRegistar = mychar - zero;
-                    std::cout << mWindowsRegistar << std::endl;
-                } else if (counter == 1) {
-                    mWindowsCashier = mychar - zero;
-                    std::cout << mWindowsCashier << std::endl;                   
-                } else if (counter == 2) {
-                    mWindowsFincialAid = mychar - zero;
-                    std::cout << mWindowsFincialAid << std::endl;
-                    serviceCenter = ServiceCenter(mWindowsRegistar, mWindowsFincialAid, mWindowsCashier);
-                } else if (counter == 3) {
-                    mClockTick = mychar - zero;
-                    std::cout << mClockTick << std::endl;
-                } else if (counter == 4) {
-                    mNumStudents = mychar - zero;
-                    std::cout << mNumStudents << std::endl;
-                    //Outer loop for each Student.
-                    for(int i = 0; i < mNumStudents; i++) {
-                        int regTime, cashierTime, aidTime;
-                        myfile >> regTime >> cashierTime >> aidTime >> order[0] >> order[1] >> order[2];
-                        orderString += order[0];
-                        orderString += order[1];
-                        orderString += order[2];
-                        //Inner loop for the information about student.
-                        for(int j = 0; j < 3; j++) {
-                            std::cout << order[j];
-                        }
-                        if(order[0] == 'R') {
-                            if(order[1] == 'C') {
-                                //Order is RCF
-                                serviceCenter.addCustomer(Customer(regTime, cashierTime, aidTime, orderString));
-                            } else if(order[1] == 'F') {
-                                //Order is RFC
-                                Customer(regTime, aidTime, cashierTime, orderString);
-                            }   
-                        } else if(order[0] == 'C') {
-                            if(order[1] == 'F') {
-                                //Order is CFR
-                                Customer(cashierTime, aidTime, regTime, orderString);
-                            } else if(order[1] == 'R') {
-                                //Order is CRF
-                                Customer(cashierTime, regTime, aidTime, orderString);
-                            }
-                        } else if(order[0] == 'F') {
-                            if(order[1] == 'C') {
-                                //Order is FCR
-                                Customer(aidTime, cashierTime, regTime, orderString);
-                            } else if(order[1] == 'R') {
-                                //Order is FRC
-                                Customer(aidTime, regTime, cashierTime, orderString);
-                            }
-                        }
+                lineCounter++;
+            }
+            mServiceCenter = ServiceCenter(windowsRegistrar, windowsFinancialAid, windowsFinancialAid);
+
+            // Load all the customers until we run out of lines
+            int numStudents = 0;
+            int arrivalTime = 0;
+            lineCounter = 0;
+            while (getline(myfile, line)) {             
+                // first line if arrival time
+                if (lineCounter == 0) {
+                    arrivalTime = std::stoi(line);
+                    lineCounter++;
+                // second line is number of students
+                } else if (lineCounter == 1) {
+                    numStudents = std::stoi(line);
+                    lineCounter++;
+                // third+ line is tasks.
+                } else if (lineCounter >= 2) {
+                    std::istringstream iss(line);
+                    int task1, task2, task3;
+                    char office1, office2, office3;
+                    iss >> task1 >> task2 >> task3 >> office1 >> office2 >> office3;
+
+                    // Create all the customers
+                    mCustomerList.insertBack(Customer(arrivalTime, office1, task1, office2, task2, office3, task3));
+                    // reset if we've read each students tasks
+                    if (lineCounter == numStudents + 1) {
+                        lineCounter = 0;
+                    } else {
+                        lineCounter ++;
                     }
-                    std::cout << std::endl;
-                    counter = 2;
-                }
-                counter++;
+                } 
             }
         }
+    } catch (const std::exception& e) {
+        std::cout << "Error\n";
     }
 }
 
-IO::~IO() {
+void IO::run() {
+    int minutes = 1;
+    int customerIndex = 0;
+    
+    // Run until there are no more customers entering the service center or in the service center
+    while (customerIndex < mCustomerList.getSize() || mServiceCenter.hasCustomers() == true) {
+        // process any customers where arrival time == current clock and 
+        // add them to the service center, which will put them to the office,
+        // which will put them in a queue.
+        while (customerIndex < mCustomerList.getSize() && mCustomerList.getAt(customerIndex).getArrivalTime() == minutes) {
+            Customer *pCustomer = &mCustomerList.getAt(customerIndex);
+            customerIndex++;
+            mServiceCenter.addCustomer(pCustomer);
+        }
 
+        mServiceCenter.runOneMinute(minutes);
+
+        minutes++;
+    }
+    mServiceCenter.printStats();
+    std::cout << "All customers processe in [" << minutes << "]\n";
 }
 
-int IO::getWindowsRegistar() {
-    return mWindowsRegistar;
-}
-
-int IO::getWindowsCashier() {
-    return mWindowsCashier;
-}
-
-int IO::getWindowsFincialAid() {
-    return mWindowsFincialAid;
-}
-
-int IO::getNumStudents() {
-    return mNumStudents;
-}
-
-int IO::getClockTick() {
-    return mClockTick;
-}

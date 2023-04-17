@@ -6,16 +6,17 @@ class Window {
     public:
         Window();
         ~Window();
-        int getIdleTime();
-        bool getIdle();
-        void setIdleTime(int idleTime);
-        void setIdle(bool idle);
-        void start(const Customer& customer, int waitTime);
+        Window(const Window& rhs );
+        Window & operator=(const Window& rhs );
+
+        void setCurrentCustomer(Customer *pCurrrentCustomer);
+        Customer* getCurrentCustomer();
+        void resetWaitTime();
+        void incrementWaitTime();
+        int getWaitTime();
     private:
-        bool idle;
-        int idleTime;
-        Customer currentCustomer;
-        int remainingTime = 0;
+        Customer *mpCurrentCustomer;
+        int mWaitTime;
 };
 
 #endif
