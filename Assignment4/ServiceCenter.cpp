@@ -71,16 +71,20 @@ void ServiceCenter::printStats() {
     std::cout << "\tMean Wait Time: " << mRegistrar.getMeanWaitTime() << std::endl;
     std::cout << "\tLongest Student Wait Time: " << mRegistrar.getMaxWaitTime() << std::endl;
     std::cout << "\tAverage Window Idle Time: " << mRegistrar.getMeanIdleTime() << std::endl;
+    std::cout << "\tLongest Idle Time: " << mRegistrar.getMaxIdleTIme() << std::endl;
     std::cout << "\nCASHIER\n";
     std::cout << "\tMean Wait Time: " << mCashier.getMeanWaitTime() << std::endl;
     std::cout << "\tLongest Student Wait Time: " << mCashier.getMaxWaitTime() << std::endl;
     std::cout << "\tAverage Window Idle Time: " << mCashier.getMeanIdleTime() << std::endl;
+    std::cout << "\tLongest Idle Time: " << mCashier.getMaxIdleTIme() << std::endl;
     std::cout << "\nFINANCIAL AID\n";
     std::cout << "\tMean Wait Time: " << mFinancialAid.getMeanWaitTime() << std::endl;
     std::cout << "\tLongest Student Wait Time: " << mFinancialAid.getMaxWaitTime() << std::endl;
     std::cout << "\tAverage Window Idle Time: " << mFinancialAid.getMeanIdleTime() << std::endl;
+    std::cout << "\tLongest Idle Time: " << mFinancialAid.getMaxIdleTIme() << std::endl;
     std::cout << "Accross all offices: " << std::endl;
     std::cout << "\tStudents waiting longer than 10 minutes: " << mFinancialAid.getLongerThanTen()+mCashier.getLongerThanTen()+mRegistrar.getLongerThanTen() << std::endl;
+    std::cout << "\tWindows waiting longer than 5 minutes: " << mFinancialAid.getNumIdleOverFive()+mCashier.getNumIdleOverFive()+mRegistrar.getNumIdleOverFive() << std::endl;
 
 }
 

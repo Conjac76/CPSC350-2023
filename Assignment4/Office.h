@@ -21,8 +21,7 @@ class Office {
         int getLongerThanTen();
         double getMeanIdleTime();
         int getMaxIdleTIme();
-    
-        
+        int getNumIdleOverFive();
 
     private:
         mutable DblList<Window> mWindows;
@@ -34,6 +33,7 @@ class Office {
         int mTotalIdleTime;
         int mNumWindows;
         int mMaxIdleTime;
+        int mNumIdleOverFive;
 };
 
 #endif

@@ -8,7 +8,8 @@ Office::Office() :
     mMaxWaitTime(0),
     mNumStudentsLongerThanTen(0),
     mTotalIdleTime(0),
-    mMaxIdleTime(0) {
+    mMaxIdleTime(0),
+    mNumIdleOverFive(0) {
 }
     
 
@@ -20,7 +21,8 @@ Office::Office(int numWindows) :
     mMaxWaitTime(0),
     mNumStudentsLongerThanTen(0),
     mTotalIdleTime(0),
-    mMaxIdleTime(0) {
+    mMaxIdleTime(0),
+    mNumIdleOverFive(0) {
       for(int i = 0; i < numWindows; ++i) {
         //Windows is a DoublyLinkedList.
         mWindows.insertBack(Window());
@@ -35,7 +37,8 @@ Office::Office (const Office& rhs) :
     mMaxWaitTime(rhs.mMaxWaitTime),
     mNumStudentsLongerThanTen(rhs.mNumStudentsLongerThanTen),
     mTotalIdleTime(rhs.mTotalIdleTime),
-    mMaxIdleTime(rhs.mMaxIdleTime) {
+    mMaxIdleTime(rhs.mMaxIdleTime),
+    mNumIdleOverFive(rhs.mNumIdleOverFive) {
 }
 
 Office & Office::operator=(const Office& rhs)  { 
@@ -49,6 +52,7 @@ Office & Office::operator=(const Office& rhs)  {
     mMaxWaitTime = rhs.mMaxWaitTime;
     mNumStudentsLongerThanTen = rhs.mNumStudentsLongerThanTen;
     mTotalIdleTime = rhs.mTotalIdleTime;
+    mNumIdleOverFive = rhs.mNumIdleOverFive;
   
     return *this;
 }
@@ -90,6 +94,9 @@ DblList<Customer *> Office::runOneMinute(int minutes) {
                 }
                 if(mMaxIdleTime < mTotalIdleTime) {
                     mMaxIdleTime = mTotalIdleTime;
+                }
+                if(mTotalIdleTime >= 5) {
+                    mNumIdleOverFive++;
                 }
                 mTotalOfficeVisits++;
                 mWindows.getAt(i).resetWaitTime();
@@ -139,5 +146,13 @@ int Office::getLongerThanTen() {
 
 double Office::getMeanIdleTime() {
     return (mTotalIdleTime/mWindows.getSize());
+}
+
+int Office::getMaxIdleTIme() {
+    return mMaxIdleTime;
+}
+
+int Office::getNumIdleOverFive() {
+    return mNumIdleOverFive;
 }
 
