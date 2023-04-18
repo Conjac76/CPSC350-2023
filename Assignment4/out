@@ -1,9 +1,0 @@
-g++ -I ../include  *.cpp -o assignment4.out
-Office.cpp:63:6: error: expected expression
-    */
-     ^
-Office.cpp:64:1: error: expected expression
-}
-^
-2 errors generated.
-make: *** [all] Error 1

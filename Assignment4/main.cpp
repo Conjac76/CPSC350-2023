@@ -3,7 +3,7 @@
 #include "ListQueue.h"
 #include "IO.h"
 
-int main() {
+int main(int argc, char *argv[]) {
     /*
     DblList<double> mylist;
     mylist.insertFront(1.1);
@@ -27,9 +27,10 @@ int main() {
         std::cout << q.dequeue() << std::endl;
     }
     */
-
+    std::string inFile;
+    inFile = argv[1];
     IO input;
-    input.readFile("inputFile.txt");
+    input.readFile(inFile);
     input.run();
 
     /*
