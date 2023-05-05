@@ -14,6 +14,7 @@ class StudentTable {
         void print();
         void studentPrint(Student student);
         void changeAdvisor(int studentID, int facultyID);
+        bool contains(int studentID);
     private:
         BST<Student> studentList;
 };

@@ -1,7 +1,7 @@
 #include "Faculty.h"
 
 Faculty::Faculty() : 
-    mFacultyID(0),
+    mFacultyID(-1),
     mName(""),
     mLevel(""),
     mDepartment("")

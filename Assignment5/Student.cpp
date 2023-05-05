@@ -2,7 +2,7 @@
 #include <iostream>
 
 Student::Student() {
-    mStudentID = 0;
+    mStudentID = -1;
     mName = "";
     mMajor = "";
     mLevel = "";
@@ -50,3 +50,6 @@ void Student::setFacultyID(int facultyID) {
     mFacultyID = facultyID;
 }
 
+int Student::getFacultyID() {
+    return mFacultyID;
+}

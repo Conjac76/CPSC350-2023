@@ -10,6 +10,9 @@ StudentTable::~StudentTable() {
 }
 
 Student StudentTable::find(int studentID) {
+    if(studentList.searchByID(studentID) == NULL) {
+        return Student();
+    }
     return studentList.searchByID(studentID)->getValue();
 }
 
@@ -33,6 +36,11 @@ void StudentTable::changeAdvisor(int studentID, int facultyID) {
     Student s = find(studentID);
     s.setFacultyID(facultyID);
     update(s, s);
+}
+
+bool StudentTable::contains(int studentID) {
+    Student s = find(studentID);
+    return studentList.contains(s);
 }
 
 

@@ -10,6 +10,9 @@ FacultyTable::~FacultyTable() {
 }
 
 Faculty FacultyTable::find(int facultyID) {
+    if(facultyList.searchByID(facultyID) == NULL) {
+        return Faculty();
+    }
     return facultyList.searchByID(facultyID)->getValue();
 }
 
@@ -39,4 +42,9 @@ void FacultyTable::deleteStudentID(int studentID, int facultyID) {
     Faculty faculty = find(facultyID);
     faculty.deleteStudentID(studentID);
     update(faculty, faculty);
+}
+
+bool FacultyTable::contains(int ID) {
+    Faculty f = find(ID);
+    return facultyList.contains(f);
 }

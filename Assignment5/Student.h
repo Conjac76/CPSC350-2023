@@ -11,6 +11,7 @@ class Student {
 
         int getID();
         void setFacultyID(int facultyID);
+        int getFacultyID();
 
 
 

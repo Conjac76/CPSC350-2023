@@ -5,11 +5,17 @@
 #include "StudentTable.h"
 #include "Database.h"
 #include "Operations.h"
+#include "Menu.h"
 #include <iostream>
 
 int main(int argc, char** argv) {
 
+
     
+    Menu m;
+    m.play();
+
+    /*
     Operations o;
     Database d;
     Faculty cheezit(0, "Sharon", "professor", "CPSC");
@@ -24,7 +30,9 @@ int main(int argc, char** argv) {
     d.addStudentID(2, 0);
     d.addStudent(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
     d.addStudentID(3, 0); 
-
+    */
+    //std::cout << d.getFacultyTable().contains(3) << std::endl;
+    
     //MENU OPTION 1
     //o.printAllStudents(d);
 

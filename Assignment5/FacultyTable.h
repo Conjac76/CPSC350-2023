@@ -14,6 +14,7 @@ class FacultyTable {
         void addStudentID(int studentID, int facultyID);
         void deleteStudentID(int studentID, int facultyID);
         void print();
+        bool contains(int ID);
     private:
         BST<Faculty> facultyList;
 };
