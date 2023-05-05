@@ -3,30 +3,69 @@
 #include "Faculty.h"
 #include "FacultyTable.h"
 #include "StudentTable.h"
+#include "Database.h"
+#include "Operations.h"
 #include <iostream>
 
 int main(int argc, char** argv) {
 
+    
+    Operations o;
+    Faculty cheezit(0, "Sharon", "professor", "CPSC");
+    o.getFacultyTable().add(cheezit);
+    o.getStudentTable().add(Student(1, "Connor", "sophomore", "CPSC", 3.2, 0));
+    cheezit.addStudentID(1);
+    o.getStudentTable().add(Student(0, "Noah", "sophomore", "CSPC", 4.0, 0));
+    cheezit.addStudentID(0);
+    o.getStudentTable().add(Student(2, "John", "sophomore", "Math", 1.0, 0));
+    cheezit.addStudentID(2);
+    o.getStudentTable().add(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
+    cheezit.addStudentID(3); 
+
+    o.getStudentTable().print();
 
 
+    /*
+    Database d;
+    Faculty cheezit(0, "Sharon", "professor", "CPSC");
+    d.addFaculty(cheezit);
+    d.addStudent(Student(1, "Connor", "sophomore", "CPSC", 3.2, 0));
+    cheezit.addStudentID(1);
+    d.addStudent(Student(0, "Noah", "sophomore", "CSPC", 4.0, 0));
+    cheezit.addStudentID(0);
+    d.addStudent(Student(2, "John", "sophomore", "Math", 1.0, 0));
+    cheezit.addStudentID(2);
+    d.addStudent(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
+    cheezit.addStudentID(3); 
+
+    d.getStudentTable().print();
+    */
+
+    /*
     StudentTable s;
     FacultyTable f;
     Faculty cheezit(0, "Sharon", "professor", "CPSC");
     f.add(cheezit);
-    s.add(Student(0, "Connor", "sophomore", "CPSC", 3.2, 0));
-    cheezit.addStudentID(0);
-    s.add(Student(1, "Noah", "sophomore", "CSPC", 4.0, 0));
+    s.add(Student(1, "Connor", "sophomore", "CPSC", 3.2, 0));
     cheezit.addStudentID(1);
+    s.add(Student(0, "Noah", "sophomore", "CSPC", 4.0, 0));
+    cheezit.addStudentID(0);
     s.add(Student(2, "John", "sophomore", "Math", 1.0, 0));
     cheezit.addStudentID(2);
     s.add(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
-    cheezit.addStudentID(3);
+    cheezit.addStudentID(3); 
 
-    s.find(0).printStudent();
+
+    s.find(3).print();
+    s.update((s.find(3)), (Student(3, "Ronnoc", "junior", "accounting", 5.0, 0)));
+    s.find(3).print();
+    
+
+    s.print();
 
 
     cheezit.getStudentIDList().printTree();
-
+    */
 
     /*
    

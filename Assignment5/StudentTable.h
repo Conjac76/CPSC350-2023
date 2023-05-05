@@ -11,6 +11,8 @@ class StudentTable {
         void del(int studentID);
         void update(Student oldStudent, Student student);
         void add(Student student);
+        void print();
+        void studentPrint(Student student);
     private:
         BST<Student> studentList;
 };

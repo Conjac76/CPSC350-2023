@@ -36,13 +36,14 @@ int Student::getID() {
     return mStudentID;
 }
 
-void Student::printStudent() {
+void Student::print() {
     std::cout << "Student ID: " << mStudentID << std::endl;
     std::cout << "Name: " << mName << std::endl;
     std::cout << "Level: " << mLevel << std::endl;
     std::cout << "Major: " << mMajor << std::endl;
     std::cout << "GPA: " << mGPA << std::endl;
     std::cout << "Faculty ID: " << mFacultyID << std::endl;
+    std::cout << std::endl;
 }
 
 void Student::setFacultyID(int studentID) {

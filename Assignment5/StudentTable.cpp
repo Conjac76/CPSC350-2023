@@ -24,3 +24,9 @@ void StudentTable::del(int studentID) {
 void StudentTable::update(Student oldStudent, Student student) {
     studentList.replace(oldStudent, student);
 }
+
+void StudentTable::print() {
+    studentList.studentPrinter();
+}
+
+

@@ -24,3 +24,7 @@ void FacultyTable::del(int facultyID) {
 void FacultyTable::update(Faculty oldFaculty, Faculty faculty) {
     facultyList.replace(oldFaculty, faculty);
 }
+
+void FacultyTable::print() {
+    //facultyList.printTree();
+}

@@ -14,6 +14,7 @@ class TreeNode {
         TreeNode& operator=(const TreeNode& other);
         T getValue();
 
+
         //data;
         T key;
         TreeNode<T> *left;
@@ -100,6 +101,8 @@ class BST {
         void replace(T oldValue, T newValue);
         void printTree();
         void recPrint(TreeNode<T> *node);
+        void studentPrint(TreeNode<T> *node);
+        void studentPrinter();
         TreeNode<T> *getRoot();
         TreeNode<T>* searchByID(int studentID);
 
@@ -373,4 +376,20 @@ TreeNode<T>* BST<T>::getSuccessor(TreeNode<T>* d) {
 
     return successor;
 }
+
+template<class T>
+void BST<T>::studentPrint(TreeNode<T> *node) {
+    if(node == NULL) {
+        return;
+    }
+    studentPrint(node->left);
+    node->key.print();
+    studentPrint(node->right);
+}
+
+template<class T>
+void BST<T>::studentPrinter() {
+    studentPrint(root); 
+}
+
 #endif

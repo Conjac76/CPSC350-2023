@@ -14,7 +14,7 @@ class Student {
 
 
 
-        void printStudent();        
+        void print();        
         // Overloading operators
         bool operator==(const Student& other) const {
             return mStudentID == other.mStudentID;
