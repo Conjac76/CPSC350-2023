@@ -12,6 +12,7 @@ class TreeNode {
         virtual ~TreeNode();
         TreeNode(const TreeNode& other); // copy constructor
         TreeNode& operator=(const TreeNode& other);
+        T getValue();
 
         //data;
         T key;
@@ -36,6 +37,11 @@ template<class T>
 TreeNode<T>::~TreeNode() {
     left = NULL;
     right = NULL;
+}
+
+template<class T>
+T TreeNode<T>::getValue() {
+    return key;
 }
 
 template<class T>
@@ -78,19 +84,36 @@ class BST {
     public:
         BST();
         virtual ~BST();
+        BST(const BST<T>& other);
 
         void insert(T value);
         bool contains(T value);
         bool deleteNode(T k);
         bool isEmpty();
+        TreeNode<T>* get(T value);
+
 
         T* getMin();
         T* getMax();
         
         TreeNode<T>* getSuccessor(TreeNode<T>* d); // d represents the node we are going to delete
+        void replace(T oldValue, T newValue);
         void printTree();
         void recPrint(TreeNode<T> *node);
         TreeNode<T> *getRoot();
+        TreeNode<T>* searchByID(int studentID);
+
+        BST<T>& operator=(const BST<T>& other) {
+        if (this != &other) {
+            TreeNode<T>* new_root = NULL;
+            if (other.root != NULL) {
+                new_root = new TreeNode<T>(*(other.root));
+            }
+            delete root;
+            root = new_root;
+        }
+        return *this;
+        }
 
     private:
         TreeNode<T> *root;
@@ -107,9 +130,40 @@ BST<T>::~BST() {
 }
 
 template<class T>
+BST<T>::BST(const BST<T>& other) {
+    if (other.root == NULL) {
+        root = NULL;
+    } else {
+        root = new TreeNode<T>(*(other.root));
+    }
+}
+
+
+template<class T>
 TreeNode<T>* BST<T>::getRoot() {
     return root;
 }
+
+template<class T>
+TreeNode<T>* BST<T>::get(T value) {
+    if (isEmpty()) {
+        return NULL;
+    }
+
+    TreeNode<T> *current = root;
+    while (current != NULL) {
+        if (current->key == value) {
+            return current;
+        } else if (value < current->key) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    return NULL; // key not found
+}
+
 
 template<class T>
 void BST<T>::recPrint(TreeNode<T> *node) {
@@ -183,6 +237,24 @@ void BST<T>::insert(T value) {
     }
 }
 
+template<class T>
+TreeNode<T>* BST<T>::searchByID(int studentID) {
+    if (isEmpty()) {
+        return NULL;
+    }
+    TreeNode<T> *current = root;
+    while (current != NULL) {
+        if (current->getValue().getID() == studentID) {
+            return current;
+        } else if (studentID < current->getValue().getID()) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+    return NULL;
+}
+
 template <class T>
 bool BST<T>::contains(T value) {
 
@@ -209,6 +281,15 @@ bool BST<T>::contains(T value) {
 
     return false; // This line will only be reached if the tree is empty
 }
+
+template<class T>
+void BST<T>::replace(T oldValue, T newValue) {
+    TreeNode<T>* node = get(oldValue);
+    if (node != NULL) {
+        node->key = newValue;
+    }
+}
+
 template<class T>
 bool BST<T>::deleteNode(T k) {
     if (isEmpty()) {

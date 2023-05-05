@@ -1,6 +1,46 @@
 #include "BST.h"
+#include "Student.h"
+#include "Faculty.h"
+#include "FacultyTable.h"
+#include "StudentTable.h"
+#include <iostream>
 
 int main(int argc, char** argv) {
+
+
+
+    StudentTable s;
+    FacultyTable f;
+    Faculty cheezit(0, "Sharon", "professor", "CPSC");
+    f.add(cheezit);
+    s.add(Student(0, "Connor", "sophomore", "CPSC", 3.2, 0));
+    cheezit.addStudentID(0);
+    s.add(Student(1, "Noah", "sophomore", "CSPC", 4.0, 0));
+    cheezit.addStudentID(1);
+    s.add(Student(2, "John", "sophomore", "Math", 1.0, 0));
+    cheezit.addStudentID(2);
+    s.add(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
+    cheezit.addStudentID(3);
+
+    s.find(0).printStudent();
+
+
+    cheezit.getStudentIDList().printTree();
+
+
+    /*
+   
+    Faculty cheezit(0, "Sharon", "professor", "CPSC", studentIDList);
+    BST<Student> studentList;
+    studentList.insert((0, "Connor", "sophomore", "CPSC", 3.2, 0));
+    Student(1, "Noah", "sophomore", "CSPC", 4.0, 0);
+    Student(2, "John", "sophomore", "Math", 1.0, 0);
+    Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0);
+
+    cheezit.getStudentIDList().printTree();
+    */
+
+    /*
     BST<int> bst;
 
     bst.insert(50);
@@ -38,5 +78,5 @@ int main(int argc, char** argv) {
     bst.printTree();
 
     return 0;
-
+    */
 }
