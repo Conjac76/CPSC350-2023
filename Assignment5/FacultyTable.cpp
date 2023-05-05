@@ -25,6 +25,18 @@ void FacultyTable::update(Faculty oldFaculty, Faculty faculty) {
     facultyList.replace(oldFaculty, faculty);
 }
 
+void FacultyTable::addStudentID(int studentID, int facultyID) {
+    Faculty faculty = find(facultyID);
+    faculty.addStudentID(studentID);
+    update(faculty, faculty);
+}
+
 void FacultyTable::print() {
-    //facultyList.printTree();
+    facultyList.studentPrinter();
+}
+
+void FacultyTable::deleteStudentID(int studentID, int facultyID) {
+    Faculty faculty = find(facultyID);
+    faculty.deleteStudentID(studentID);
+    update(faculty, faculty);
 }

@@ -13,18 +13,69 @@ int main(int argc, char** argv) {
     Operations o;
     Database d;
     Faculty cheezit(0, "Sharon", "professor", "CPSC");
+    Faculty peperoni(1, "Carol", "professor", "math");
     d.addFaculty(cheezit);
+    d.addFaculty(peperoni);
     d.addStudent(Student(1, "Connor", "sophomore", "CPSC", 3.2, 0));
-    cheezit.addStudentID(1);
+    d.addStudentID(1, 0);
     d.addStudent(Student(0, "Noah", "sophomore", "CSPC", 4.0, 0));
-    cheezit.addStudentID(0);
+    d.addStudentID(0, 0);
     d.addStudent(Student(2, "John", "sophomore", "Math", 1.0, 0));
-    cheezit.addStudentID(2);
+    d.addStudentID(2, 0);
     d.addStudent(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
-    cheezit.addStudentID(3); 
+    d.addStudentID(3, 0); 
 
-    o.printAllStudents(d);
+    //MENU OPTION 1
+    //o.printAllStudents(d);
 
+    //MENU OPTION 2
+    //o.printAllFaculty(d);
+
+    //MENU OPTION 3
+    //o.printFaculty(d, 0);
+
+    //MENU OPTION 4
+    //o.printStudent(d, 1);
+
+    //Menu OPTION 5
+    //d.addStudentID(4, 1); //this should be some Operation not Database class
+    //o.addNewStudent(d, Student(4, "YETI", "super senior", "finance", 0.7, 1));
+    //o.printAllStudents(d);
+    //o.printFaculty(d, 1);
+
+    //MENU OPTION 6
+    //o.deleteStudent(d, 4);
+    //d.deleteStudentID(4, 1);
+    //o.printAllStudents(d);
+    //o.printAllFaculty(d);
+    
+
+
+    //MENU OPTION 7
+    //o.addNewFaculty(d, Faculty(2, "John", "advisor", "business"));
+    //o.printAllFaculty(d);    
+
+    //MENU OPTION 8
+    //if (facultyList.isEmpty()) {
+    //  o.deleteFaculty(d, 2);
+    //} else {
+    //   throw error
+    //   break;   
+    //}
+    //o.deleteFaculty(d, 2);
+
+    //MENU OPTION 9
+    //o.changeAdvisor(d, 0, 1);
+    //d.addStudentID(0, 1);
+    //o.deleteStudentID(d, 0, 0);
+    //o.printAllStudents(d);
+    //o.printAllFaculty(d);
+
+    //MENU OPTION 10
+    //d.addStudentID(5, 0);
+    //o.printAllFaculty(d);
+    //o.deleteStudentID(d, 5, 0);
+    //o.printAllFaculty(d);
 
     /*
     Database d;

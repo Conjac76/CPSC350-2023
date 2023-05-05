@@ -10,6 +10,8 @@ class Faculty {
         Faculty(const Faculty& other);
         Faculty(int facultyID, std::string name, std::string level, std::string department);
         void addStudentID(int studentID);
+        void deleteStudentID(int studentID);
+        void print();
 
         int getID();
         BST<int> getStudentIDList();

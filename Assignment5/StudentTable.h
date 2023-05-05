@@ -13,6 +13,7 @@ class StudentTable {
         void add(Student student);
         void print();
         void studentPrint(Student student);
+        void changeAdvisor(int studentID, int facultyID);
     private:
         BST<Student> studentList;
 };

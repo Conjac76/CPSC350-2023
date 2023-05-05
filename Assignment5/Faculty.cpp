@@ -43,3 +43,18 @@ int Faculty::getID() {
 void Faculty::addStudentID(int studentID) {
     mStudentIDList.insert(studentID);
 }
+
+void Faculty::deleteStudentID(int studentID) {
+    mStudentIDList.deleteNode(studentID);
+}
+
+void Faculty::print() {
+    std::cout << "Faculty ID: " << mFacultyID << std::endl;
+    std::cout << "Name: " << mName << std::endl;
+    std::cout << "Level: " << mLevel << std::endl;
+    std::cout << "Department: " << mDepartment << std::endl;
+    std::cout << "Student ID List: ";
+    mStudentIDList.printTree();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}

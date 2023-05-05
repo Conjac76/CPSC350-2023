@@ -11,6 +11,8 @@ class FacultyTable {
         void del(int facultyID);
         void update(Faculty oldFaculty, Faculty Faculty);
         void add(Faculty Faculty);
+        void addStudentID(int studentID, int facultyID);
+        void deleteStudentID(int studentID, int facultyID);
         void print();
     private:
         BST<Faculty> facultyList;

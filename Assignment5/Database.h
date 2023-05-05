@@ -15,6 +15,9 @@ class Database {
         void addFaculty(Faculty f);
         void deleteStudent(int studentID);
         void deleteFaculty(int studentID);
+        void addStudentID(int studentID, int facultyID);
+        void deleteStudentID(int studentID, int facultyID);
+        void changeAdvisor(int studentID, int facultyID);
 
     private:
         FacultyTable facultyTable;

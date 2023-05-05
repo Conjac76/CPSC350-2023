@@ -46,7 +46,7 @@ void Student::print() {
     std::cout << std::endl;
 }
 
-void Student::setFacultyID(int studentID) {
-    mStudentID = studentID;
+void Student::setFacultyID(int facultyID) {
+    mFacultyID = facultyID;
 }
 
