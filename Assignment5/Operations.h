@@ -10,11 +10,9 @@ class Operations {
     public:
         Operations();
         ~Operations();
-        void printAllStudents(); 
-        StudentTable getStudentTable();
-        FacultyTable getFacultyTable();
+        void printAllStudents(Database d); 
     private:
-        Database database;
+
 };
 
 #endif

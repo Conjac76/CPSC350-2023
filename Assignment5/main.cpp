@@ -11,18 +11,19 @@ int main(int argc, char** argv) {
 
     
     Operations o;
+    Database d;
     Faculty cheezit(0, "Sharon", "professor", "CPSC");
-    o.getFacultyTable().add(cheezit);
-    o.getStudentTable().add(Student(1, "Connor", "sophomore", "CPSC", 3.2, 0));
+    d.addFaculty(cheezit);
+    d.addStudent(Student(1, "Connor", "sophomore", "CPSC", 3.2, 0));
     cheezit.addStudentID(1);
-    o.getStudentTable().add(Student(0, "Noah", "sophomore", "CSPC", 4.0, 0));
+    d.addStudent(Student(0, "Noah", "sophomore", "CSPC", 4.0, 0));
     cheezit.addStudentID(0);
-    o.getStudentTable().add(Student(2, "John", "sophomore", "Math", 1.0, 0));
+    d.addStudent(Student(2, "John", "sophomore", "Math", 1.0, 0));
     cheezit.addStudentID(2);
-    o.getStudentTable().add(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
+    d.addStudent(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
     cheezit.addStudentID(3); 
 
-    o.getStudentTable().print();
+    o.printAllStudents(d);
 
 
     /*
