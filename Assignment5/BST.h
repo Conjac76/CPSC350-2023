@@ -1,6 +1,6 @@
 #ifndef BST_H
 #define BST_H
-
+#include <fstream>
 #include <iostream>
 using namespace std;
 
@@ -92,7 +92,9 @@ class BST {
         bool deleteNode(T k);
         bool isEmpty();
         TreeNode<T>* get(T value);
-
+        void printTreeToFile(const string& filename);
+        void studentPrintToFile(TreeNode<T> *node, ofstream& outFile);
+ 
 
         T* getMin();
         T* getMax();
@@ -166,7 +168,6 @@ TreeNode<T>* BST<T>::get(T value) {
 
     return NULL; // key not found
 }
-
 
 template<class T>
 void BST<T>::recPrint(TreeNode<T> *node) {

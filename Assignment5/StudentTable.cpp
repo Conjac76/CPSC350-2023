@@ -32,6 +32,7 @@ void StudentTable::print() {
     studentList.studentPrinter();
 }
 
+
 void StudentTable::changeAdvisor(int studentID, int facultyID) {
     Student s = find(studentID);
     s.setFacultyID(facultyID);

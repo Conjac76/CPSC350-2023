@@ -1,5 +1,7 @@
 #include "Menu.h"
 #include <string>
+#include <iostream>
+#include <fstream>
 
 Menu::Menu() {
 
@@ -25,7 +27,18 @@ void Menu::play() {
     d.addStudentID(2, 0);
     d.addStudent(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
     d.addStudentID(3, 0); 
-    //delete above before turning in
+
+    std::cout << "1. Print all students and their information (sorted by ascending id #)" << std::endl;
+    std::cout << "2. Print all faculty and their information (sorted by ascending id #)" << std::endl;
+    std::cout << "3. Find and display student information given the student id" << std::endl;
+    std::cout << "4. Find and display faculty information given the faculty id" << std::endl;
+    std::cout << "5. Add a new student" << std::endl;
+    std::cout << "6. Delete a student given the id" << std::endl;
+    std::cout << "7. Add a new faculty member" << std::endl;
+    std::cout << "8. Delete a faculty member given the id."  << std::endl;
+    std::cout << "9. Change a student’s advisor given the student id and the new faculty id." << std::endl;
+    std::cout << "10. Remove an advisee from a faculty member given the ids" << std::endl;
+    std::cout << "11. Exit" << std::endl;
 
 
     int number = 12;
@@ -165,6 +178,13 @@ void Menu::play() {
                 continue;
             }
         } else if (number == 11) {
+            std::ofstream outputFile("runLog.txt");
+            std::streambuf* coutbuf = std::cout.rdbuf();
+            std::cout.rdbuf(outputFile.rdbuf());
+            o.printAllFaculty(d);
+            o.printAllStudents(d);
+            std::cout.rdbuf(coutbuf);
+            outputFile.close();
             break;
         } else {
             std::cout << "You enter the wrong number try again\n";

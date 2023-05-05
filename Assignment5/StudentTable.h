@@ -15,6 +15,7 @@ class StudentTable {
         void studentPrint(Student student);
         void changeAdvisor(int studentID, int facultyID);
         bool contains(int studentID);
+        void printToFile(std::string output);
     private:
         BST<Student> studentList;
 };
