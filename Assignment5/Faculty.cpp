@@ -32,7 +32,7 @@ Faculty::Faculty(const Faculty& other) :
 
 }
 
-BST<int> Faculty::getStudentIDList() {
+LazyBST<int> Faculty::getStudentIDList() {
     return mStudentIDList;
 }
 

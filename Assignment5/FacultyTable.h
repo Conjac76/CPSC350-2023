@@ -1,7 +1,7 @@
 #ifndef FACULTYTABLE_H
 #define FACULTYTABLE_H
 #include "Faculty.h"
-#include "BST.h"
+#include "LazyBST.h"
 
 class FacultyTable {
     public:
@@ -16,7 +16,7 @@ class FacultyTable {
         void print();
         bool contains(int ID);
     private:
-        BST<Faculty> facultyList;
+        LazyBST<Faculty> facultyList;
 };
 
 #endif 

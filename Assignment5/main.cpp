@@ -1,4 +1,3 @@
-#include "BST.h"
 #include "Student.h"
 #include "Faculty.h"
 #include "FacultyTable.h"
@@ -6,11 +5,12 @@
 #include "Database.h"
 #include "Operations.h"
 #include "Menu.h"
+#include "LazyBST.h"
 #include <iostream>
 
 int main(int argc, char** argv) {
 
-
+    
     
     Menu m;
     m.play();
@@ -130,7 +130,7 @@ int main(int argc, char** argv) {
     /*
    
     Faculty cheezit(0, "Sharon", "professor", "CPSC", studentIDList);
-    BST<Student> studentList;
+    LazyBST<Student> studentList;
     studentList.insert((0, "Connor", "sophomore", "CPSC", 3.2, 0));
     Student(1, "Noah", "sophomore", "CSPC", 4.0, 0);
     Student(2, "John", "sophomore", "Math", 1.0, 0);
@@ -140,13 +140,13 @@ int main(int argc, char** argv) {
     */
 
     /*
-    BST<int> bst;
+    LazyBST<int> bst;
 
-    bst.insert(50);
-    bst.insert(30);
+    LazyBST.insert(50);
+    LazyBST.insert(30);
     bst.insert(70);
-    bst.insert(20);
-    bst.insert(40);
+    LazyBST.insert(20);
+    LazyBST.insert(40);
     bst.insert(60);
     bst.insert(80);
 

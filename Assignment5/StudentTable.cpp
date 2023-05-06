@@ -1,5 +1,5 @@
 #include "StudentTable.h"
-#include "BST.h"
+#include "LazyBST.h"
 
 StudentTable::StudentTable() {
 

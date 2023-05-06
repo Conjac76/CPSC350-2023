@@ -1,24 +1,33 @@
-/*
-#ifndef BST_H
+#ifndef LazyBST_H
+#define LazyBST_H
 
-#define BST_H
-
+#include <fstream>
 #include <iostream>
+#include <algorithm>
+
 using namespace std;
 
 template<class T>
 class TreeNode {
-    public:
-        TreeNode();
-        TreeNode(T data);
-        virtual ~TreeNode();
+public:
+    TreeNode();
+    TreeNode(T data);
+    virtual ~TreeNode();
+    TreeNode(const TreeNode& other); // copy constructor
+    TreeNode& operator=(const TreeNode& other);
+    T getValue();
+    int getDepth();
+    void updateDepth();
+    void setLeft(TreeNode<T>* node);
+    void setRight(TreeNode<T>* node);
 
-        //data;
-        T key;
-        TreeNode<T> *left;
-        TreeNode<T> *right;
+    T key;
+    TreeNode<T> *left;
+    TreeNode<T> *right;
 
-
+private:
+    int depth_left;
+    int depth_right;
 };
 
 template<class T>
@@ -26,13 +35,16 @@ TreeNode<T>::TreeNode(T k) {
     left = NULL;
     right = NULL;
     key = k;
+    depth_left = 0;
+    depth_right = 0;
 }
 
 template<class T>
 TreeNode<T>::TreeNode() {
     left = NULL;
     right = NULL;
-    key = NULL;
+    depth_left = 0;
+    depth_right = 0;
 }
 
 template<class T>
@@ -42,209 +54,372 @@ TreeNode<T>::~TreeNode() {
 }
 
 template<class T>
-class BST {
+T TreeNode<T>::getValue() {
+    return key;
+}
+
+template<class T>
+int TreeNode<T>::getDepth() {
+    return max(depth_left, depth_right);
+}
+
+template<class T>
+void TreeNode<T>::updateDepth() {
+    int left_depth = (left == NULL) ? -1 : left->getDepth();
+    int right_depth = (right == NULL) ? -1 : right->getDepth();
+    depth_left = left_depth + 1;
+    depth_right = right_depth + 1;
+}
+
+template<class T>
+void TreeNode<T>::setLeft(TreeNode<T>* node) {
+    left = node;
+    updateDepth();
+}
+
+template<class T>
+void TreeNode<T>::setRight(TreeNode<T>* node) {
+    right = node;
+    updateDepth();
+}
+
+template<class T>
+TreeNode<T>::TreeNode(const TreeNode& other) {
+    key = other.key;
+    if (other.left != NULL) {
+        left = new TreeNode<T>(*other.left); // recursively copy left subtree
+    } else {
+        left = NULL;
+    }
+    if (other.right != NULL) {
+        right = new TreeNode<T>(*other.right); // recursively copy right subtree
+    } else {
+        right = NULL;
+    }
+    depth_left = other.depth_left;
+    depth_right = other.depth_right;
+}
+
+template<class T>
+TreeNode<T>& TreeNode<T>::operator=(const TreeNode& other) {
+    if (this != &other) {
+        key = other.key;
+        if (other.left != NULL) {
+            delete left;
+            left = new TreeNode(*other.left);
+        } else {
+            left = NULL;
+        } 
+        if (other.right != NULL) {
+            delete right;
+            right = new TreeNode(*other.right);
+        } else {
+            right = NULL;
+        }
+    }
+    return *this;
+}
+
+
+
+
+template<class T>
+class LazyBST {
     public:
-        BST();
-        virtual ~BST();
+        LazyBST();
+        virtual ~LazyBST();
+        LazyBST(const LazyBST<T>& other);
 
         void insert(T value);
         bool contains(T value);
         bool deleteNode(T k);
         bool isEmpty();
+        TreeNode<T>* get(T value);
+        void printTreeToFile(const string& filename);
+        void studentPrintToFile(TreeNode<T> *node, ofstream& outFile);
+ 
 
         T* getMin();
         T* getMax();
         
-        TreeNode<T> *getSuccessor(TreeNode<T> d); // d represents the node we are going to delete
+        TreeNode<T>* getSuccessor(TreeNode<T>* d); // d represents the node we are going to delete
+        void replace(T oldValue, T newValue);
         void printTree();
         void recPrint(TreeNode<T> *node);
+        void studentPrint(TreeNode<T> *node);
+        void studentPrinter();
         TreeNode<T> *getRoot();
+        TreeNode<T>* searchByID(int studentID);
+        bool needsRebuild(TreeNode<T>* root);
+        TreeNode<T>* constructLBTree(const T* values, int start, int end);
+        void rebuildTree(TreeNode<T>*& root);
+        int countNodes(TreeNode<T>* node);
+        void flattenTree(TreeNode<T>* node, T* values, int& index);
+
+
+        LazyBST<T>& operator=(const LazyBST<T>& other) {
+        if (this != &other) {
+            TreeNode<T>* new_root = NULL;
+            if (other.root != NULL) {
+                new_root = new TreeNode<T>(*(other.root));
+            }
+            delete root;
+            root = new_root;
+        }
+        return *this;
+        }
 
     private:
         TreeNode<T> *root;
-        
 };
 
 template<class T>
-BST<T>::BST() {
+LazyBST<T>::LazyBST() {
     root = NULL;
 }
+template<class T>
+bool needsRebuild(TreeNode<T>* root) {
+    if (root == nullptr) {
+        return false;
+    }
+    int leftDepth = getDepth(root->left);
+    int rightDepth = getDepth(root->right);
+    int maxDepth = std::max(leftDepth, rightDepth);
+    return (std::abs(leftDepth - rightDepth) > maxDepth * 1.5);
+}
+
 
 template<class T>
-BST<T>::~BST() {
+LazyBST<T>::~LazyBST() {
     //research it
 }
 
 template<class T>
-TreeNode<T>* BST<T>::getRoot() {
-    return root
+LazyBST<T>::LazyBST(const LazyBST<T>& other) {
+    if (other.root == NULL) {
+        root = NULL;
+    } else {
+        root = new TreeNode<T>(*(other.root));
+    }
+}
+
+
+template<class T>
+TreeNode<T>* LazyBST<T>::getRoot() {
+    return root;
 }
 
 template<class T>
-void BST<T>::recPrint(TreeNode<T> *node) {
+TreeNode<T>* LazyBST<T>::get(T value) {
+    if (isEmpty()) {
+        return NULL;
+    }
+
+    TreeNode<T> *current = root;
+    while (current != NULL) {
+        if (current->key == value) {
+            return current;
+        } else if (value < current->key) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    return NULL; // key not found
+}
+
+
+template<class T>
+void LazyBST<T>::recPrint(TreeNode<T> *node) {
     if(node == NULL) {
         return;
     }
     recPrint(node->left);
+    cout << node->key << " ";
     recPrint(node->right);
 }
 
 template<class T>
-void BST<T>::printTree() {
+void LazyBST<T>::printTree() {
     recPrint(root); //Prints entire tree - root down.
 }
 
 template<class T>
-bool BST<T>::isEmpty() {
-    return (root == null);
+bool LazyBST<T>::isEmpty() {
+    return (root == NULL);
 }
 
 template<class T>
-T* BST<T>::getMin() {
-     if(isEmpty()) {
-    return NULL;
-    }
-    while(current->left != NULL) {
-    current = current->left;
-    }
-
-    return current->key;
-}
-
-template<class T>
-T* BST<T>::getMax() {
+T* LazyBST<T>::getMin() {
     if(isEmpty()) {
-    return NULL;
+        return NULL;
     }
-    while(current->right != NULL) {
-    current = current->right;
+    TreeNode<T> *current = root;
+    while(current->left != NULL) {
+        current = current->left;
     }
-
-    return current->right;
+    return &(current->key);
 }
 
 template<class T>
-void BST<T>::insert(T value) {
-    TreeNode<T> *node = new TreeNode<T>();
+T* LazyBST<T>::getMax() {
+    if(isEmpty()) {
+        return NULL;
+    }
+    TreeNode<T> *current = root;
+    while(current->right != NULL) {
+        current = current->right;
+    }
+    return &(current->key);
+}
+
+template<class T>
+void LazyBST<T>::insert(T value) {
+    TreeNode<T> *node = new TreeNode<T>(value);
 
     if(isEmpty()) {
         root = node;
     } else {
-        //Tree don't be empty.
         TreeNode<T> *current = root;
         TreeNode<T> *parent = NULL;
-
         while(true) {
-            //Need to iterate to find insertion point.
             parent = current;
-
             if(value < current->key) {
-                //left
                 current = current->left;
                 if(current == NULL) {
-                    //found
                     parent->left = node;
                     break;
                 }
             } else {
-                current->right = node;
-                break;
+                current = current->right;
+                if(current == NULL) {
+                    parent->right = node;
+                    break;
+                }
             }
-
-        }
-
-    }
-}
-
-template <class T>
-bool BST<T>::contains(T value) {
-
-    if(isEmpty) {
-        return false;
-    }
-    TreeNode<T> *current = root;
-    while(current->key != value) {
-        if(value < current ->left) {
-            current = current->left;
-        } else {
-            current = current->right;
-        }
-        if(current == NULL) {
-            return false;
         }
     }
-    return true;
-
 }
 
 template<class T>
-bool BST<T>::deleteNode(T k) {
+TreeNode<T>* LazyBST<T>::searchByID(int studentID) {
+    if (isEmpty()) {
+        return NULL;
+    }
+    TreeNode<T> *current = root;
+    while (current != NULL) {
+        if (current->getValue().getID() == studentID) {
+            return current;
+        } else if (studentID < current->getValue().getID()) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+    return NULL;
+}
+
+template <class T>
+bool LazyBST<T>::contains(T value) {
+
     if(isEmpty()) {
         return false;
-
     }
+
+    TreeNode<T> *current = root;
+    while(current != nullptr) {
+        if(current->key == value) {
+            return true;
+        } else if(value < current->key) {
+            if(current->left == nullptr) {
+                return false;
+            }
+            current = current->left;
+        } else {
+            if(current->right == nullptr) {
+                return false;
+            }
+            current = current->right;
+        }
+    }
+
+    return false; // This line will only be reached if the tree is empty
+}
+
+template<class T>
+void LazyBST<T>::replace(T oldValue, T newValue) {
+    TreeNode<T>* node = get(oldValue);
+    if (node != NULL) {
+        node->key = newValue;
+    }
+}
+
+template<class T>
+bool LazyBST<T>::deleteNode(T k) {
+    if (isEmpty()) {
+        return false;
+    }
+
     TreeNode<T> *current = root;
     TreeNode<T> *parent = root;
     bool isLeft = true;
-    while(current->key != k) {
+
+    while (current->key != k) {
         parent = current;
-        if(k < current->key) {
+        if (k < current->key) {
             current = current->left;
+            isLeft = true;
         } else {
-            //node is right node
-            isLeft = false;
             current = current->right;
+            isLeft = false;
         }
-        if(current == NULL) {
+        if (current == NULL) {
             return false;
         }
     }
 
-    if(current->left == NULL && current->right == NULL) {
-        if(current == root) {
+    if (current->left == NULL && current->right == NULL) {
+        if (current == root) {
             root = NULL;
-        } else if(isLeft) {
+        } else if (isLeft) {
             parent->left = NULL;
         } else {
             parent->right = NULL;
         }
-    //node to be deleted has only one child, left child.
-    } else if(current->right == NULL) {
-        if(current == root) {
+    } else if (current->right == NULL) {
+        if (current == root) {
             root = current->left;
-        } else if(isLeft) {
+        } else if (isLeft) {
             parent->left = current->left;
         } else {
             parent->right = current->left;
         }
-    //node to be deleted has one child left child.
-    } else if(current->left == NULL) {
-        if(current == root) {
+    } else if (current->left == NULL) {
+        if (current == root) {
             root = current->right;
-        } else if(isLeft) {
+        } else if (isLeft) {
             parent->left = current->right;
         } else {
             parent->right = current->right;
         }
     } else {
-        //node to be deleted has two children
-        TreeNode<T> successor = getSuccessor(current);
-        if(current == root) {
+        TreeNode<T> *successor = getSuccessor(current);
+        if (current == root) {
             root = successor;
-        } else if(isleft) {
+        } else if (isLeft) {
             parent->left = successor;
         } else {
             parent->right = successor;
-        } 
-
+        }
         successor->left = current->left;
-        current->left = NULL;
-        current->right = NULL;
     }
+    delete current;
+    return true;
 }
 
 template<class T>
-TreeNode<T> BST<T>::*getSuccessor(TreeNode<T> d) {
+TreeNode<T>* LazyBST<T>::getSuccessor(TreeNode<T>* d) {
     //d represents the node to be deleted
     TreeNode<T> *sp = d;
     TreeNode<T> *successor = d;
@@ -263,6 +438,64 @@ TreeNode<T> BST<T>::*getSuccessor(TreeNode<T> d) {
 
     return successor;
 }
-#endif
 
-*/
+template<class T>
+TreeNode<T>* constructLBTree(const T* values, int start, int end) {
+    if (start > end) {
+        return nullptr;
+    }
+    int mid = start + (end - start) / 2;
+    TreeNode<T>* node = new TreeNode<T>(values[mid]);
+    node->left = constructLBTree(values, start, mid - 1);
+    node->right = constructLBTree(values, mid + 1, end);
+    return node;
+}
+
+template<class T>
+void rebuildTree(TreeNode<T>*& root) {
+    int size = countNodes(root);
+    T* values = new T[size];
+    int i = 0;
+    flattenTree(root, values, i);
+    std::sort(values, values + size);
+    root = constructLBTree(values, 0, size - 1);
+    updateDepths(root);
+    delete[] values;
+}
+
+template<class T>
+int countNodes(TreeNode<T>* node) {
+    if (node == nullptr) {
+        return 0;
+    }
+    return 1 + countNodes(node->left) + countNodes(node->right);
+}
+
+template<class T>
+void flattenTree(TreeNode<T>* node, T* values, int& index) {
+    if (node == nullptr) {
+        return;
+    }
+    flattenTree(node->left, values, index);
+    values[index++] = node->key;
+    flattenTree(node->right, values, index);
+}
+
+
+
+template<class T>
+void LazyBST<T>::studentPrint(TreeNode<T> *node) {
+    if(node == NULL) {
+        return;
+    }
+    studentPrint(node->left);
+    node->key.print();
+    studentPrint(node->right);
+}
+
+template<class T>
+void LazyBST<T>::studentPrinter() {
+    studentPrint(root); 
+}
+
+#endif

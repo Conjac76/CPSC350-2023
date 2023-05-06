@@ -1,7 +1,7 @@
 #ifndef FACULTY_H
 #define FACULTY_H
 #include <string>
-#include "BST.h"
+#include "LazyBST.h"
 
 class Faculty {
     public:
@@ -16,7 +16,7 @@ class Faculty {
 
 
         int getID();
-        BST<int> getStudentIDList();
+        LazyBST<int> getStudentIDList();
 
         // Overloading operators
         bool operator==(const Faculty& other) const {
@@ -41,7 +41,7 @@ class Faculty {
         std::string mName;
         std::string mLevel;
         std::string mDepartment;
-        BST<int> mStudentIDList;
+        LazyBST<int> mStudentIDList;
 };
 
 #endif

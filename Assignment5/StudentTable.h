@@ -1,7 +1,7 @@
 #ifndef STUDENTTABLE_H
 #define STUDENTTABLE_H
 #include "Student.h"
-#include "BST.h"
+#include "LazyBST.h"
 
 class StudentTable {
     public:
@@ -15,9 +15,8 @@ class StudentTable {
         void studentPrint(Student student);
         void changeAdvisor(int studentID, int facultyID);
         bool contains(int studentID);
-        void printToFile(std::string output);
     private:
-        BST<Student> studentList;
+        LazyBST<Student> studentList;
 };
 
 #endif 
