@@ -33,6 +33,19 @@ class Student {
             return mStudentID != other.mStudentID;
         }
 
+        Student& operator=(const Student& other) {
+            if (this != &other) { // Check for self-assignment
+                mStudentID = other.mStudentID;
+                mName = other.mName;
+                mLevel = other.mLevel;
+                mMajor = other.mMajor;
+                mGPA = other.mGPA;
+                mFacultyID = other.mFacultyID;
+            }
+            return *this;
+        }
+
+
     private:
         int mStudentID;
         std::string mName;

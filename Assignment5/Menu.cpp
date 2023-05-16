@@ -14,7 +14,7 @@ Menu::~Menu() {
 void Menu::play() {
    
 
-    //for testing purposes
+    // For testing purposes
     Faculty cheezit(0, "Sharon", "professor", "CPSC");
     Faculty peperoni(1, "Carol", "professor", "math");
     d.addFaculty(cheezit);
@@ -28,21 +28,19 @@ void Menu::play() {
     d.addStudent(Student(3, "Ronnor", "sophomore", "CPSC", 5.5, 0));
     d.addStudentID(3, 0); 
 
-    std::cout << "1. Print all students and their information (sorted by ascending id #)" << std::endl;
-    std::cout << "2. Print all faculty and their information (sorted by ascending id #)" << std::endl;
-    std::cout << "3. Find and display student information given the student id" << std::endl;
-    std::cout << "4. Find and display faculty information given the faculty id" << std::endl;
-    std::cout << "5. Add a new student" << std::endl;
-    std::cout << "6. Delete a student given the id" << std::endl;
-    std::cout << "7. Add a new faculty member" << std::endl;
-    std::cout << "8. Delete a faculty member given the id."  << std::endl;
-    std::cout << "9. Change a student’s advisor given the student id and the new faculty id." << std::endl;
-    std::cout << "10. Remove an advisee from a faculty member given the ids" << std::endl;
-    std::cout << "11. Exit" << std::endl;
-
-
     int number = 12;
     while(number != 11) {
+        std::cout << "1. Print all students and their information (sorted by ascending id #)" << std::endl;
+        std::cout << "2. Print all faculty and their information (sorted by ascending id #)" << std::endl;
+        std::cout << "3. Find and display student information given the student id" << std::endl;
+        std::cout << "4. Find and display faculty information given the faculty id" << std::endl;
+        std::cout << "5. Add a new student" << std::endl;
+        std::cout << "6. Delete a student given the id" << std::endl;
+        std::cout << "7. Add a new faculty member" << std::endl;
+        std::cout << "8. Delete a faculty member given the id."  << std::endl;
+        std::cout << "9. Change a student’s advisor given the student id and the new faculty id." << std::endl;
+        std::cout << "10. Remove an advisee from a faculty member given the ids" << std::endl;
+        std::cout << "11. Exit" << std::endl;
         std::cout << "Enter number 1-11\n";
         std::cin >> number;
         if(number == 1) {
@@ -77,7 +75,7 @@ void Menu::play() {
             std::cout << "Enter new student ID\n";
             std::cin >> newStudentID;
             if(d.getStudentTable().contains(newStudentID) || newStudentID < 0) {
-                std::cout << "There is already a student with this id\n";
+                std::cout << "Invalid ID\n";
                 continue;
             }
             std::cout << "Enter new student name\n";
@@ -90,14 +88,20 @@ void Menu::play() {
             std::cin >> gpa;
             std::cout << "Enter new student faculty ID\n";
             std::cin >> facultyID;
-            o.addNewStudent(d, Student(newStudentID, name, grade, major, gpa, facultyID));
-            d.addStudentID(newStudentID, facultyID);
+            if(d.getFacultyTable().contains(facultyID) || facultyID == -1) {
+                o.addNewStudent(d, Student(newStudentID, name, grade, major, gpa, facultyID));
+                d.addStudentID(newStudentID, facultyID);
+                continue;
+            } else {
+                std::cout << "Cannot assign student to faculty that does not exist\n";
+            }
+            
         } else if (number == 6) {
             int studentID;
             std::cout << "Enter student ID to delete\n";
             std::cin >> studentID;
             if(!(d.getStudentTable().contains(studentID)) || studentID < 0) {
-                std::cout << "The student is not in the list\n";
+                std::cout << "Invalid ID\n";
                 continue;
             }
             int facultyOfStudent = d.getStudentTable().find(studentID).getFacultyID();
@@ -111,7 +115,7 @@ void Menu::play() {
             std::cout << "Enter new faculty ID\n";
             std::cin >> facultyID;
             if (d.getFacultyTable().contains(facultyID) || facultyID < 0) {
-                std::cout << "There is already a faculty member with this ID\n";
+                std::cout << "Invalid ID\n";
                 continue;
             }
             std::cout << "Enter new faculty name\n";
@@ -147,7 +151,7 @@ void Menu::play() {
             }
             std::cout << "Enter Faculty ID to gain a student\n";
             std::cin >> facultyID;
-            if(!(d.getFacultyTable().contains(facultyID))) {
+            if(!(d.getFacultyTable().contains(facultyID) || facultyID == -1)) {
                 std::cout << "You cannot add a student to a non-existant faculty member\n";
                 continue;
             }
@@ -166,8 +170,8 @@ void Menu::play() {
             }
             std::cout << "Enter Faculty ID\n";
             std::cin >> facultyID;
-            if(!(d.getFacultyTable().contains(facultyID))) {
-                std::cout << "Advisor does not exist\n";
+            if(!(d.getFacultyTable().contains(facultyID) || facultyID == -1)) {
+                std::cout << "Advisor does not exist, enter -1 for null faculty ID\n";
                 continue;
             }
             int currentFaculty = d.getStudentTable().find(studentID).getFacultyID();

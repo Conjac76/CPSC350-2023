@@ -34,6 +34,17 @@ class Faculty {
         bool operator!=(const Faculty& other) const {
             return mFacultyID != other.mFacultyID;
         }
+        Faculty& operator=(const Faculty& other) {
+            if (this != &other) {
+                mFacultyID = other.mFacultyID;
+                mName = other.mName;
+                mLevel = other.mLevel;
+                mDepartment = other.mDepartment;
+                mStudentIDList = other.mStudentIDList;
+            }
+            return *this;
+        }
+
 
 
     private:
